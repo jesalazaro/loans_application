@@ -1,0 +1,9 @@
+[07:38:53 2024-05-22] FETCHING Version 2.36.11
+[07:38:53 2024-05-22] CREATING /home/jaiver/.spicetify
+[07:38:53 2024-05-22] DOWNLOADING https://github.com/spicetify/cli/releases/download/v2.36.11/spicetify-2.36.11-linux-amd64.tar.gz
+[07:38:54 2024-05-22] EXTRACTING /home/jaiver/.spicetify/spicetify.tar.gz
+[07:38:54 2024-05-22] SETTING EXECUTABLE PERMISSIONS TO /home/jaiver/.spicetify/spicetify
+[07:38:54 2024-05-22] REMOVING /home/jaiver/.spicetify/spicetify.tar.gz
+[07:38:54 2024-05-22] APPENDING /home/jaiver/.spicetify to PATH in /home/jaiver/.zshrc
+[07:38:54 2024-05-22] spicetify v2.36.11 was installed successfully to /home/jaiver/.spicetify
+[07:38:54 2024-05-22] Run 'spicetify --help' to get started
