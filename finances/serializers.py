@@ -49,6 +49,11 @@ class CustomerCreateResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ["external_id", "status", "score", "preapproved_at"]
+
+
+class LoanCreateSerializer(serializers.ModelSerializer):
+    customer_external_id = serializers.CharField(write_only=True)
+
     class Meta:
         model = Loan
         fields = ["external_id", "customer_external_id", "amount"]
@@ -152,7 +157,7 @@ class PaymentSerializer(serializers.ModelSerializer):
 
                 payment_amount = min(total_amount, loan.outstanding)
                 loan.outstanding -= payment_amount
-
+                
                 # check if the outstanding its 0, in case change the status of the loan to paid
                 if loan.outstanding <= 0:
                     loan.status = 4
