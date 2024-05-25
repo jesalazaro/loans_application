@@ -16,7 +16,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = "__all__"
         read_only_fields = ["status"]
-
+    
     def create(self, validated_data):
         validated_data["status"] = 1
         return super().create(validated_data)
@@ -27,7 +27,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     def get_available_amount(self, obj):
         return get_available_amount(obj)
 
-    def to_representation(self, instance):
+    def to_representation(self, instance):  
         data = {
             "external_id": instance.external_id,
             "score": instance.score,
@@ -45,6 +45,7 @@ class CustomerCreateResponseSerializer(serializers.ModelSerializer):
 
 
 class LoanCreateSerializer(serializers.ModelSerializer):
+    # Obtain Customer_external_id
     customer_external_id = serializers.CharField(write_only=True)
 
     class Meta:
@@ -74,6 +75,7 @@ class LoanSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
+    # Obtain Customer_external_id
     customer_external_id = serializers.CharField(write_only=True)
 
     class Meta:

@@ -13,20 +13,23 @@ def create_payment(validated_data):
     validated_data["status"] = 1
 
     total_amount = validated_data["total_amount"]
-
+    # Obtain Loans
     loans = Loan.objects.filter(
         customer_id=customer.id, outstanding__gt=0
     ).order_by("created_at")
 
+    # Total pending of outstanding
     total_outstanding = loans.aggregate(total=Sum("outstanding"))["total"]
     if total_outstanding is None:
         total_outstanding = 0
 
+    # Check if the amount in the request exceeds the total of the loans
     if total_amount > total_outstanding:
         raise serializers.ValidationError(
             "Total payment amount exceeds outstanding loan values"
         )
 
+    # Ensures that all database operations within the block are atomic, meaning they either all succeed or all fail.
     with transaction.atomic():
         payment = Payment.objects.create(**validated_data)
 
@@ -36,6 +39,7 @@ def create_payment(validated_data):
             payment_amount = min(total_amount, loan.outstanding)
             loan.outstanding -= payment_amount
 
+            # check if the outstanding its 0, in case change the status of the loan to paid
             if loan.outstanding <= 0:
                 loan.status = 4
             loan.save()
