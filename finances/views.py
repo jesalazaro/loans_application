@@ -20,13 +20,19 @@ class CustomerCreateView(generics.CreateAPIView):
     serializer_class = CustomerSerializer
     permission_classes = [HasAPIKey]
 
-    # Use the custom serializer response, just to show the necesary fields
+    # Use the custom serializer response, just to show the necessary fields
     def create(self, request):
+        # Initialize the serializer with request data
         serializer = self.get_serializer(data=request.data)
+        # Validate serializer data, raising an exception if validation fails
         serializer.is_valid(raise_exception=True)
+        # Perform creation of the customer object
         self.perform_create(serializer)
+        # Get headers for success response
         headers = self.get_success_headers(serializer.data)
+        # Create a response serializer with the created instance
         response_serializer = CustomerCreateResponseSerializer(serializer.instance)
+        # Return response with custom serializer data, status 201 (created), and headers
         return Response(response_serializer.data, status=201, headers=headers)
 
 
@@ -43,8 +49,11 @@ class CustomerBalanceView(generics.RetrieveAPIView):
     permission_classes = [HasAPIKey]
 
     def retrieve(self, request, *args, **kwargs):
+        # Retrieve the customer object based on the provided external_id
         instance = self.get_object()
+        # Initialize serializer with retrieved instance and request context
         serializer = self.get_serializer(instance, context={"request": request})
+        # Return response with serialized customer data
         return Response(serializer.data)
 
 
@@ -55,7 +64,7 @@ class LoanCreateView(generics.CreateAPIView):
 
 
 class LoanListView(generics.ListAPIView):
-    queryset = Loan.objects.all
+    queryset = Loan.objects.all()
     permission_classes = [HasAPIKey]
 
 
@@ -64,8 +73,11 @@ class LoansByCustomerExternalIdView(generics.ListAPIView):
     permission_classes = [HasAPIKey]
 
     def get_queryset(self):
+        # Retrieve customer external_id from URL kwargs
         customer_external_id = self.kwargs["external_id"]
+        # Get customer object based on external_id or return 404 if not found
         customer = get_object_or_404(Customer, external_id=customer_external_id)
+        # Return queryset of loans filtered by customer_id
         return Loan.objects.filter(customer_id=customer.id)
 
 
