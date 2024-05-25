@@ -12,12 +12,13 @@ from .serializers import (
     LoanSerializer,
     PaymentSerializer,
 )
-from django.db import transaction
+from rest_framework_api_key.permissions import HasAPIKey
 
 
 class CustomerCreateView(generics.CreateAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    permission_classes = [HasAPIKey]
 
     # Use the custom serializer response, just to show the necesary fields
     def create(self, request):
@@ -32,12 +33,14 @@ class CustomerCreateView(generics.CreateAPIView):
 class CustomerListView(generics.ListAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    permission_classes = [HasAPIKey]
 
 
 class CustomerBalanceView(generics.RetrieveAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     lookup_field = "external_id"
+    permission_classes = [HasAPIKey]
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -48,14 +51,17 @@ class CustomerBalanceView(generics.RetrieveAPIView):
 class LoanCreateView(generics.CreateAPIView):
     queryset = Loan.objects.all()
     serializer_class = LoanCreateSerializer
+    permission_classes = [HasAPIKey]
 
 
 class LoanListView(generics.ListAPIView):
     queryset = Loan.objects.all
+    permission_classes = [HasAPIKey]
 
 
 class LoansByCustomerExternalIdView(generics.ListAPIView):
     serializer_class = LoanSerializer
+    permission_classes = [HasAPIKey]
 
     def get_queryset(self):
         customer_external_id = self.kwargs["external_id"]
@@ -66,3 +72,4 @@ class LoansByCustomerExternalIdView(generics.ListAPIView):
 class PaymentListCreateView(generics.ListCreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+    permission_classes = [HasAPIKey]
