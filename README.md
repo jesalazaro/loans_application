@@ -80,7 +80,7 @@ Each service is described in detail, including examples of request and response 
 
 Feel free to refer to this document to understand how to interact with the different endpoints in the system.
 
-You can also can check the postman collection:  
+Also, You can check the postman collection:  
 
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/17834641-217bf94d-91ba-4b75-8d38-7e74d3658b34?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D17834641-217bf94d-91ba-4b75-8d38-7e74d3658b34%26entityType%3Dcollection%26workspaceId%3D832be956-8010-4a6f-9044-b5639af51b92)
 
