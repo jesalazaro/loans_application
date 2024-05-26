@@ -105,7 +105,7 @@ This service creates a new customer with the provided information.
 
 - `external_id` (string): The external ID of the customer.
 - `score` (integer): The score of the customer.
-- `preapproved_at` (string, optional): The date and time when the customer was preapproved.
+- `preapproved_at` (date, optional): The date and time when the customer was preapproved.
 
 ##### Example:
 
@@ -134,7 +134,7 @@ This service creates a new customer with the provided information.
 - `external_id` (string): The external ID of the customer.
 - `status` (integer): The status of the customer (1 indicates active).
 - `score` (string): The credit of the customer.
-- `preapproved_at` (string): The date and time when the customer was preapproved.
+- `preapproved_at` (date): The date and time when the customer was preapproved.
 
 
 ### Service: Get Customers
@@ -285,7 +285,7 @@ This service processes a payment made by a customer.
 
 - `external_id` (string): The external ID of the payment.
 - `total_amount` (string): The total amount of the payment.
-- `paid_at` (string): The date and time when the payment was made.
+- `paid_at` (date): The date and time when the payment was made.
 ### Service: Get Loans
 
 #### Description
